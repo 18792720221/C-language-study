@@ -5,21 +5,33 @@
 #include<stdlib.h>
 #include<windows.h>
 #define MAX 1000
-typedef struct people
+#define MAX_NAME 5
+#define MAX_TELE 13
+enum FUNC
 {
-	char name[5];
-	char tele[12];
-}people;
-struct elem
+	Exit,
+	Add,
+	Del,
+	Search,
+	Modify,
+	Show,
+	Sort,
+	Save
+};
+typedef struct People
 {
-	struct people;
+	char name[MAX_NAME];
+	char tele[MAX_TELE];
+}People;
+typedef struct Contact
+{
 	int size;
-};
-struct s 
-{
-	int a;
-	int b;
-};
-typedef struct elem  elem;
+	People people[MAX];
+}Contact;
+
 void menu(void );
-void add(elem contact);
+void Initcontact(Contact *p);
+void add(Contact *p );
+void show(Contact *p);
+void del(Contact *p);
+void save(Contact *p);
