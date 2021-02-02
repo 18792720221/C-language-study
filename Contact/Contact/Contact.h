@@ -35,3 +35,7 @@ void add(Contact *p );
 void show(Contact *p);
 void del(Contact *p);
 void save(Contact *p);
+void Load(Contact *p);
+void search(Contact *p);
+void modify(Contact *p);
+void sort(Contact *p);
