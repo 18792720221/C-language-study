@@ -24,6 +24,23 @@ void Initial(HNode* p)
 {	
 	p->next = NULL;
 	p->size=0;
+	FILE* pf = fopen("sqlist.txt", "r");
+	if (pf == NULL) 
+	{
+		printf("%s\n", strerror(errno));
+		return;
+	}
+	fread(&p->size, 1, sizeof(int), pf);
+	for (int i = 0; i < p->size; i++)
+	{
+		LNode *s = (LNode*)malloc(sizeof(LNode));
+		fread(&(s->c), 1, sizeof(MAX), pf);
+		s->next = p->next;
+		p->next = s;
+		p->size++;
+	}
+	fclose(pf);
+	pf = NULL;
 }
 
 //头插法建立单链表
@@ -82,6 +99,31 @@ void Del(HNode *L)
 	}
 }
 
+void Save(HNode *L) 
+{
+	FILE*pf = fopen("sqlist.txt", "w");
+	if (pf == NULL)
+	{
+		printf("%s\n", strerror(errno));
+		return;
+	}
+	else
+	{
+		fwrite(&(L->size), sizeof(int), 1, pf);
+		LNode*p = L->next;
+		int i = 0;
+		for (i = 0; i < L->size; i++)
+		{
+			
+			fread(&(p->c), 1, sizeof(LNode), pf);
+			p->next;
+		}
+	}
+	fclose(pf);
+	pf = NULL;
+
+}
+
 int main() 
 {
 	HNode *L = NULL;//头指针指向头结点
@@ -95,5 +137,6 @@ int main()
 	Display(L);//打印所有结点的信息
 	Del(L);
 	Display(L);
+	Save(L);
 	return 0;
 }
